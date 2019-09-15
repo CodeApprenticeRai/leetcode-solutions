@@ -1,0 +1,43 @@
+from collections import deque
+
+class Solution:
+    def areOverlapped(self, interval1, interval2):
+        if (interval1[1] >= interval2[0]):
+            return True
+        if ((interval1[0] < interval2[0]) and (interval1[1] > interval2[1])):
+            return True
+
+        return False
+
+    def mergeIntervals(self, interval1, interval2):
+        __interval = []
+        for i in range(2):
+            __interval.append(interval1[i])
+            __interval.append(interval2[i])
+        return [min(__interval), max(__interval)]
+
+    def minMeetingRooms(self, intervals):
+        if not intervals:
+            return 0
+        else:
+            newIntervals = deque()
+            intervals.sort(key=lambda x: x[0])
+            
+            meeting_room_counter = 0
+            
+            i = 0
+            while (i < len(intervals)):
+                if ((len(newIntervals) == 0)):
+                    newIntervals.append(intervals[i])
+                    meeting_room_counter += 1
+                elif (self.areOverlapped(newIntervals[-1], intervals[i])):
+                    newIntervals.append(self.mergeIntervals(newIntervals.pop(), intervals[i]))
+                    meeting_room_counter += 1
+                else:
+                    newIntervals.append(intervals[i])
+                i += 1
+            return meeting_room_counter
+
+sol = Solution()
+print( sol.minMeetingRooms([[0, 30],[5, 10],[15, 20]])==2 )
+print( sol.minMeetingRooms([[7,10],[2,4]])==1 )
