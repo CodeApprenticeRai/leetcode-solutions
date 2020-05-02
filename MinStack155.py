@@ -6,7 +6,7 @@
     top() -- Get the top element.
     getMin() -- Retrieve the minimum element in the stack.
 
-    
+
 '''
 
 
