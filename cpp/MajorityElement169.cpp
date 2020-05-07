@@ -10,7 +10,7 @@ class Solution {
 public:
     int majorityElement(vector<int>& nums) {
         std::map<int,int> number_count;
-        int majority_element; 
+        int majority_element;
 
         for ( auto &number : nums ){
             if (number_count.count(number) != 1){
